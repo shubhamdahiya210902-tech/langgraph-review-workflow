@@ -1,0 +1,85 @@
+{
+  "candidate_id": "mock-candidate-001",
+  "name": "Alex Morgan",
+  "headline": "Graduate software engineer focused on Python automation and applied LLM workflows",
+  "location_preference": "Remote or hybrid",
+  "work_authorization": "Synthetic profile for demo use only",
+  "languages": [
+    {
+      "language": "English",
+      "level": "Professional"
+    },
+    {
+      "language": "German",
+      "level": "A2"
+    }
+  ],
+  "skills": [
+    "Python",
+    "FastAPI",
+    "pytest",
+    "Git",
+    "Docker basics",
+    "Prompt engineering",
+    "Retrieval augmented generation",
+    "Data validation",
+    "Technical writing"
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "type": "project",
+      "title": "Mock RAG Support Assistant",
+      "summary": "Retrieved mock articles and drafted grounded answers with cited snippets.",
+      "skills": [
+        "Python",
+        "Retrieval augmented generation",
+        "Prompt engineering",
+        "Data validation"
+      ],
+      "outcomes": [
+        "Added source IDs to generated answers.",
+        "Flagged answers when no supporting snippet was found.",
+        "Wrote pytest tests for citation coverage."
+      ]
+    },
+    {
+      "id": "EV-002",
+      "type": "project",
+      "title": "Mock FastAPI Task Tracker",
+      "summary": "Created a FastAPI service for synthetic task records with validation and tests.",
+      "skills": ["Python", "FastAPI", "pytest", "Git"],
+      "outcomes": [
+        "Defined Pydantic request and response models.",
+        "Implemented deterministic unit tests for filtering logic.",
+        "Documented local setup commands."
+      ]
+    },
+    {
+      "id": "EV-003",
+      "type": "coursework",
+      "title": "Applied LLM Evaluation Notes",
+      "summary": "Compared model responses with a factuality and completeness rubric.",
+      "skills": ["Prompt engineering", "Data validation", "Technical writing"],
+      "outcomes": [
+        "Created a small scoring rubric.",
+        "Separated supported observations from speculative recommendations."
+      ]
+    }
+  ],
+  "claims_to_review": [
+    "Built a mock RAG support assistant with cited snippets.",
+    "Created a FastAPI task tracker with Pydantic models and pytest coverage.",
+    "Compared synthetic LLM responses with a factuality and completeness rubric.",
+    "Production LangGraph deployment experience.",
+    "Led a team of five engineers.",
+    "Expert-level German fluency.",
+    "Certified cloud architect."
+  ],
+  "unsupported_claim_examples": [
+    "Production LangGraph deployment experience",
+    "Led a team of five engineers",
+    "Expert-level German fluency",
+    "Certified cloud architect"
+  ]
+}

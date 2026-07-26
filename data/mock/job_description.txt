@@ -1,0 +1,37 @@
+Junior AI Workflow Engineer - Mock Role
+
+Company:
+Example Systems Lab is a fictional software team used for public portfolio demos.
+
+Role Summary:
+We are looking for a junior engineer or working student to help build AI-assisted
+review workflows for internal productivity tools. The role focuses on Python,
+structured LLM workflows, evaluation rubrics, and clear documentation.
+
+Responsibilities:
+- Build small Python workflow components for reviewing text inputs.
+- Use structured schemas to extract requirements and candidate evidence.
+- Create scoring rubrics that explain coverage, gaps, and uncertainty.
+- Add checks that flag unsupported or speculative claims.
+- Write pytest tests for deterministic business logic.
+- Document setup steps and example outputs for technical reviewers.
+
+Required Qualifications:
+- Practical Python experience.
+- Familiarity with APIs, data validation, or typed schemas.
+- Basic understanding of LLM prompting or retrieval augmented generation.
+- Ability to write clear technical documentation.
+- Comfort using Git and running local developer tools.
+
+Nice To Have:
+- Experience with LangGraph, LangChain, or similar workflow orchestration.
+- Experience designing model evaluation rubrics.
+- Familiarity with FastAPI or lightweight backend services.
+- Awareness of human-in-the-loop review patterns.
+
+Language:
+English required. German is helpful but not required.
+
+Important Note:
+Applicants should only claim skills and experience that can be supported by
+concrete project, coursework, or work evidence.
