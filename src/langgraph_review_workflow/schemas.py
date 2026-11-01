@@ -163,3 +163,31 @@ class FinalDraftResult(BaseModel):
     excluded_claim_ids: list[str] = Field(default_factory=list)
     cited_evidence_ids: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
+
+
+LiveClaimStatus = Literal["grounded", "unsupported", "contradicted"]
+
+
+class LiveClaimLabel(BaseModel):
+    """Live-model label for one claim, kept small so a local model can fill it."""
+
+    claim_id: str = Field(description="Claim identifier exactly as given, such as CLAIM-001.")
+    status: LiveClaimStatus
+    evidence_ids: list[str] = Field(
+        default_factory=list,
+        description="Evidence IDs from the profile that support the claim; empty if none.",
+    )
+    rationale: str = Field(description="One short sentence explaining the label.")
+
+
+class LiveGroundednessLabels(BaseModel):
+    """Structured output requested from the live groundedness model."""
+
+    labels: list[LiveClaimLabel] = Field(default_factory=list)
+
+
+class LiveDraftOutput(BaseModel):
+    """Structured output requested from the live drafting model."""
+
+    draft_text: str = Field(description="Short review draft using only the approved claims.")
+    cited_evidence_ids: list[str] = Field(default_factory=list)

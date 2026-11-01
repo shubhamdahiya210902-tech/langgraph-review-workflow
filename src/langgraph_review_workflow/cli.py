@@ -12,12 +12,21 @@ from rich.markdown import Markdown
 from rich.table import Table
 
 from langgraph_review_workflow.graph import build_graph
-from langgraph_review_workflow.model_boundary import DEFAULT_MODEL_BOUNDARY
+from langgraph_review_workflow.live_eval import LiveRunRecord, run_live_eval, write_report
+from langgraph_review_workflow.model_boundary import (
+    DEFAULT_MODEL_BOUNDARY,
+    DEFAULT_OLLAMA_BASE_URL,
+    DEFAULT_OLLAMA_EMBED_MODEL,
+    DEFAULT_OLLAMA_JUDGE_MODEL,
+    DEFAULT_OLLAMA_MODEL,
+)
+from langgraph_review_workflow.ollama_client import OllamaClient
 from langgraph_review_workflow.state import ReviewState
 
 
 DEFAULT_CANDIDATE_PROFILE = Path("data/mock/candidate_profile.json")
 DEFAULT_JOB_DESCRIPTION = Path("data/mock/job_description.txt")
+DEFAULT_EVAL_OUTPUT_DIR = Path("eval/results")
 
 app = typer.Typer(
     help="Run the public-safe LangGraph review workflow demo.",
@@ -234,6 +243,71 @@ def demo(
         console.print(Markdown(result["final_draft"]))
     else:
         console.print("Final draft: [dim]skipped until human approval is provided[/dim]")
+
+
+@app.command("live-eval")
+def live_eval(
+    runs: int = typer.Option(10, "--runs", min=1, help="Number of live workflow runs."),
+    temperature: float = typer.Option(0.7, "--temperature", help="Sampling temperature."),
+    model: str = typer.Option(DEFAULT_OLLAMA_MODEL, "--model", help="Ollama chat model."),
+    judge_model: str = typer.Option(
+        DEFAULT_OLLAMA_JUDGE_MODEL,
+        "--judge-model",
+        help="Ollama model for LLM-as-a-judge scoring.",
+    ),
+    embed_model: str = typer.Option(
+        DEFAULT_OLLAMA_EMBED_MODEL,
+        "--embed-model",
+        help="Ollama embedding model for semantic similarity.",
+    ),
+    base_url: str = typer.Option(DEFAULT_OLLAMA_BASE_URL, "--base-url", help="Ollama URL."),
+    candidate_profile: Path = typer.Option(DEFAULT_CANDIDATE_PROFILE, "--candidate-profile"),
+    job_description: Path = typer.Option(DEFAULT_JOB_DESCRIPTION, "--job-description"),
+    output_dir: Path = typer.Option(DEFAULT_EVAL_OUTPUT_DIR, "--output-dir"),
+) -> None:
+    """Run the workflow repeatedly on a local Ollama model and score the results."""
+
+    client = OllamaClient(model=model, base_url=base_url)
+    if not client.is_available():
+        console.print(f"[red]Ollama is not reachable at {base_url}.[/red] Start it first.")
+        raise typer.Exit(code=1)
+
+    installed = client.installed_models()
+    required = {model, judge_model, embed_model}
+    missing = sorted(
+        name
+        for name in required
+        if name not in installed and f"{name}:latest" not in installed
+    )
+    if missing:
+        console.print(f"[red]Missing Ollama models:[/red] {', '.join(missing)}")
+        console.print("Pull them with: " + "; ".join(f"ollama pull {m}" for m in missing))
+        raise typer.Exit(code=1)
+
+    def report_progress(record: LiveRunRecord) -> None:
+        status = "error: " + record.error if record.error else (
+            f"{sum(label == 'grounded' for label in record.labels.values())} grounded"
+        )
+        console.print(f"Run {record.run_index}/{runs} ({record.duration_seconds:.1f}s): {status}")
+
+    console.print(
+        f"Live eval: {runs} run(s) of {model} at temperature {temperature}; "
+        "judge and similarity scoring follow."
+    )
+    report = run_live_eval(
+        candidate_profile=_load_candidate_profile(candidate_profile),
+        job_description=_load_job_description(job_description),
+        runs=runs,
+        temperature=temperature,
+        model=model,
+        judge_model=judge_model,
+        embed_model=embed_model,
+        base_url=base_url,
+        on_run_complete=report_progress,
+    )
+    json_path, md_path = write_report(report, output_dir)
+    console.print(Markdown(md_path.read_text(encoding="utf-8")))
+    console.print(f"Wrote {json_path} and {md_path}")
 
 
 if __name__ == "__main__":

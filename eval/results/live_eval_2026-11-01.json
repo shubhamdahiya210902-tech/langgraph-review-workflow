@@ -1,0 +1,499 @@
+{
+  "created_at": "2026-11-01T08:15:44+00:00",
+  "model": "qwen2.5:3b",
+  "judge_model": "qwen2.5:3b",
+  "embed_model": "nomic-embed-text",
+  "temperature": 0.7,
+  "runs_requested": 10,
+  "runs_completed": 10,
+  "runs_failed": 0,
+  "total_duration_seconds": 253.6,
+  "mean_run_seconds": 18.314,
+  "gpu_offload": [
+    {
+      "model": "qwen2.5:3b",
+      "size_bytes": 2163568803,
+      "size_vram_bytes": 2163568803,
+      "gpu_share": 1.0
+    },
+    {
+      "model": "nomic-embed-text:latest",
+      "size_bytes": 335743549,
+      "size_vram_bytes": 335743549,
+      "gpu_share": 1.0
+    }
+  ],
+  "overall_label_agreement": 0.4286,
+  "block_decision_agreement": 0.8429,
+  "mean_claim_consistency": 0.9857,
+  "claims_that_changed_label": 1,
+  "claim_metrics": [
+    {
+      "claim_id": "CLAIM-001",
+      "claim": "Built a mock RAG support assistant with cited snippets.",
+      "expected_label": "grounded",
+      "label_counts": {
+        "grounded": 10
+      },
+      "agreement": 1.0,
+      "majority_label": "grounded",
+      "consistency": 1.0,
+      "changed_label": false
+    },
+    {
+      "claim_id": "CLAIM-002",
+      "claim": "Created a FastAPI task tracker with Pydantic models and pytest coverage.",
+      "expected_label": "grounded",
+      "label_counts": {
+        "grounded": 10
+      },
+      "agreement": 1.0,
+      "majority_label": "grounded",
+      "consistency": 1.0,
+      "changed_label": false
+    },
+    {
+      "claim_id": "CLAIM-003",
+      "claim": "Compared synthetic LLM responses with a factuality and completeness rubric.",
+      "expected_label": "grounded",
+      "label_counts": {
+        "grounded": 10
+      },
+      "agreement": 1.0,
+      "majority_label": "grounded",
+      "consistency": 1.0,
+      "changed_label": false
+    },
+    {
+      "claim_id": "CLAIM-004",
+      "claim": "Production LangGraph deployment experience.",
+      "expected_label": "unsupported",
+      "label_counts": {
+        "contradicted": 10
+      },
+      "agreement": 0.0,
+      "majority_label": "contradicted",
+      "consistency": 1.0,
+      "changed_label": false
+    },
+    {
+      "claim_id": "CLAIM-005",
+      "claim": "Led a team of five engineers.",
+      "expected_label": "unsupported",
+      "label_counts": {
+        "contradicted": 10
+      },
+      "agreement": 0.0,
+      "majority_label": "contradicted",
+      "consistency": 1.0,
+      "changed_label": false
+    },
+    {
+      "claim_id": "CLAIM-006",
+      "claim": "Expert-level German fluency.",
+      "expected_label": "contradicted",
+      "label_counts": {
+        "grounded": 10
+      },
+      "agreement": 0.0,
+      "majority_label": "grounded",
+      "consistency": 1.0,
+      "changed_label": false
+    },
+    {
+      "claim_id": "CLAIM-007",
+      "claim": "Certified cloud architect.",
+      "expected_label": "unsupported",
+      "label_counts": {
+        "contradicted": 9,
+        "grounded": 1
+      },
+      "agreement": 0.0,
+      "majority_label": "contradicted",
+      "consistency": 0.9,
+      "changed_label": true
+    }
+  ],
+  "mean_semantic_similarity": 0.7667,
+  "min_semantic_similarity": 0.7352,
+  "judge_pass_rate": 0.1,
+  "mean_judge_scores": {
+    "only_grounded_claims": 3.1,
+    "no_blocked_claims": 4.1,
+    "no_new_facts": 3.4
+  },
+  "reference_draft": "# Evidence-Grounded Candidate Review Draft\n\n- Candidate: Alex Morgan\n- Role: Junior AI Workflow Engineer - Mock Role\n\n## Fit Summary\nWeighted coverage is 31.0/34.0 (91.2%). 2 requirement(s) have no explicit support; 1 requirement(s) are partially supported.\n\n## Evidence-Grounded Highlights\n- Built a mock RAG support assistant with cited snippets. Evidence: EV-001, PROFILE-SKILLS.\n- Created a FastAPI task tracker with Pydantic models and pytest coverage. Evidence: EV-001, EV-002, PROFILE-SKILLS.\n- Compared synthetic LLM responses with a factuality and completeness rubric. Evidence: EV-001, EV-003, PROFILE-SKILLS.\n\n## Known Gaps\n- Requirements with no explicit support: REQ-012, REQ-015.\n- Partially supported requirements: REQ-001.\n\n## Excluded Claims\n- Excluded from drafting: CLAIM-004, CLAIM-005, CLAIM-006, CLAIM-007.\n\n## Drafting Constraints\n- Use only the cited evidence above.\n- Do not add claims about production LangGraph deployments, leadership,\n  expert German fluency, certifications, or other unsupported experience.",
+  "runs": [
+    {
+      "run_index": 1,
+      "duration_seconds": 84.9,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan demonstrated ability to build a mock RAG support assistant with cited snippets (CLAIM-001). She also created a FastAPI task tracker with Pydantic models and pytest coverage (CLAIM-002). Lastly, she compared synthetic LLM responses using a factuality and completeness rubric (CLAIM-003). Expert-level German fluency is not supported by the given evidence. Weighted coverage is 31.0/34.0 (91.2%).",
+      "similarity_to_reference": 0.7606,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 3,
+          "reason": "One claim (CLAIM-002) is not grounded as it uses 'Expert-level German fluency' which is not from the GROUNDED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 4,
+          "reason": "The draft adds no new facts beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    },
+    {
+      "run_index": 2,
+      "duration_seconds": 10.78,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan demonstrated competence in a junior AI Workflow Engineer role. She built a mock RAG support assistant using cited snippets. She created a FastAPI task tracker with Pydantic models and pytest coverage. However, she did not provide evidence for comparing synthetic LLM responses with a factuality and completeness rubric or showcasing expert-level German fluency.",
+      "similarity_to_reference": 0.8097,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 4,
+          "reason": "The draft includes all claims from the GROUNDED list and none from the BLOCKED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 3,
+          "reason": "The draft adds no new facts beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    },
+    {
+      "run_index": 3,
+      "duration_seconds": 11.82,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan demonstrated skills in creating a mock RAG support assistant and a FastAPI task tracker with Pydantic models and pytest coverage. No evidence supports CLAIM-003, and no German fluency was mentioned. Weighted coverage is 31.0/34.0 (91.2%).",
+      "similarity_to_reference": 0.7524,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 4,
+          "reason": "The draft includes all claims from the GROUNDED list and no claims from the BLOCKED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 3,
+          "reason": "The draft adds no new facts beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    },
+    {
+      "run_index": 4,
+      "duration_seconds": 10.03,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "grounded"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006",
+        "CLAIM-007"
+      ],
+      "draft_text": "Alex Morgan demonstrated mock RAG support assistant creation with cited snippets (CLAIM-001). Created a FastAPI task tracker with Pydantic models and pytest coverage (CLAIM-002). Compared synthetic LLM responses with a factuality and completeness rubric (CLAIM-003). No evidence found for expert-level German fluency (CLAIM-006) or certified cloud architect (CLAIM-007).",
+      "similarity_to_reference": 0.771,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 2,
+          "reason": "CLAIM-006 and CLAIM-007 introduce new facts not grounded in the GROUNDED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 3,
+          "reason": "The draft adds no new skills, experience, numbers, or qualities beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    },
+    {
+      "run_index": 5,
+      "duration_seconds": 9.73,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan demonstrated a mock RAG support assistant with cited snippets (CLAIM-001). Created a FastAPI task tracker with Pydantic models and pytest coverage (CLAIM-002). Compared synthetic LLM responses with a factuality and completeness rubric (CLAIM-003). Expert-level German fluency not supported.",
+      "similarity_to_reference": 0.754,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 2,
+          "reason": "The draft includes a claim (Expert-level German fluency not supported) that is not grounded in the GROUNDED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 3,
+          "reason": "The draft adds a new fact (Expert-level German fluency) beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    },
+    {
+      "run_index": 6,
+      "duration_seconds": 11.17,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan built a mock RAG support assistant using cited snippets. She created a FastAPI task tracker with Pydantic models and pytest coverage. She compared synthetic LLM responses with a factuality and completeness rubric. Expert-level German fluency is not supported by evidence. ",
+      "similarity_to_reference": 0.7352,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 3,
+          "reason": "Scored 3 because one claim ('Expert-level German fluency is not supported by evidence') is not grounded in the GROUNDED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "Scored 4 because all stated claims are from the GROUNDED list and none imply or state claims from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 2,
+          "reason": "Scored 2 because the draft adds 'Expert-level German fluency' which is not grounded in the GROUNDED list and not covered in the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    },
+    {
+      "run_index": 7,
+      "duration_seconds": 9.99,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan demonstrated a focus on AI workflow engineering with mock projects. She built a mock RAG support assistant using cited snippets. She also created a FastAPI task tracker with Pydantic models and pytest coverage. However, there is no evidence for expert-level German fluency or LLM response comparison. Mock projects show partial support for the role requirements.",
+      "similarity_to_reference": 0.7977,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 4,
+          "reason": "The draft includes one claim ('Production LangGraph deployment experience') from the BLOCKED list, which is not fully grounded."
+        },
+        "no_blocked_claims": {
+          "score": 5,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 4,
+          "reason": "The draft adds one new fact (expert-level German fluency) beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": true,
+      "error": null
+    },
+    {
+      "run_index": 8,
+      "duration_seconds": 11.77,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan claims to have built a mock RAG support assistant and a FastAPI task tracker with Pydantic models and pytest coverage. However, claims regarding comparing synthetic LLM responses with a factuality and completeness rubric and expert-level German fluency lack evidence. Weighted coverage is 31.0/34.0 (91.2%). 1 requirement is not supported, and 1 is only partially supported.",
+      "similarity_to_reference": 0.7473,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 3,
+          "reason": "The draft includes claims about comparing synthetic LLM responses and expert-level German fluency, which are not grounded in the GROUNDED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 4,
+          "reason": "The draft does not add new skills, experience, numbers, or qualities beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    },
+    {
+      "run_index": 9,
+      "duration_seconds": 11.28,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan demonstrated the ability to build a mock RAG support assistant with cited snippets (CLAIM-001). She also created a FastAPI task tracker with Pydantic models and pytest coverage (CLAIM-002). Additionally, she compared synthetic LLM responses with a factuality and completeness rubric (CLAIM-003). Expert-level German fluency is not relevant to the mock role (CLAIM-006).",
+      "similarity_to_reference": 0.7741,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 3,
+          "reason": "One claim (CLAIM-006) introduces a new fact (Expert-level German fluency) not covered in the GROUNDED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 4,
+          "reason": "The draft adds no new skills, experience, numbers, or qualities beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    },
+    {
+      "run_index": 10,
+      "duration_seconds": 11.67,
+      "labels": {
+        "CLAIM-001": "grounded",
+        "CLAIM-002": "grounded",
+        "CLAIM-003": "grounded",
+        "CLAIM-004": "contradicted",
+        "CLAIM-005": "contradicted",
+        "CLAIM-006": "grounded",
+        "CLAIM-007": "contradicted"
+      },
+      "approved_claim_ids": [
+        "CLAIM-001",
+        "CLAIM-002",
+        "CLAIM-003",
+        "CLAIM-006"
+      ],
+      "draft_text": "Alex Morgan demonstrated ability to build a mock RAG support assistant using cited snippets (CLAIM-001). She also created a FastAPI task tracker with Pydantic models and pytest coverage (CLAIM-002). However, she did not provide evidence for comparing synthetic LLM responses with a rubric (CLAIM-003). Partial support was given for her expert-level German fluency (CLAIM-006). Overall, 31.0/34.0 weighted coverage (91.2%).",
+      "similarity_to_reference": 0.7654,
+      "judge": {
+        "only_grounded_claims": {
+          "score": 3,
+          "reason": "CLAIM-003 introduces a new claim about comparing synthetic LLM responses, which is not grounded in the GROUNDED list."
+        },
+        "no_blocked_claims": {
+          "score": 4,
+          "reason": "The draft does not state or imply any claim from the BLOCKED list."
+        },
+        "no_new_facts": {
+          "score": 4,
+          "reason": "The draft adds no new facts beyond the GROUNDED list and the coverage summary."
+        }
+      },
+      "judge_passed": false,
+      "error": null
+    }
+  ]
+}

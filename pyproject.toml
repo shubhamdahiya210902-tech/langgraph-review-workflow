@@ -30,6 +30,9 @@ build-backend = "hatchling.build"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+markers = [
+  "live: calls a local Ollama model; skipped unless RUN_LIVE=1 and Ollama is reachable",
+]
 
 [tool.ruff]
 line-length = 100

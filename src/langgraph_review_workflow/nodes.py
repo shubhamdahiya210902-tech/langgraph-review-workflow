@@ -1,10 +1,13 @@
 """LangGraph node functions for the review workflow."""
 
+from langgraph_review_workflow.model_boundary import ModelBoundaryConfig
 from langgraph_review_workflow.state import AuditEvent, ReviewState, StepStatus
 from langgraph_review_workflow.steps.approval import approval_gate_runnable
 from langgraph_review_workflow.steps.drafting import drafting_runnable
 from langgraph_review_workflow.steps.evidence import evidence_mapping_runnable
 from langgraph_review_workflow.steps.groundedness import groundedness_check_runnable
+from langgraph_review_workflow.steps.live_drafting import live_drafting_runnable
+from langgraph_review_workflow.steps.live_groundedness import live_groundedness_check_runnable
 from langgraph_review_workflow.steps.requirements import requirement_extraction_runnable
 from langgraph_review_workflow.steps.scoring import coverage_scoring_runnable
 
@@ -26,6 +29,11 @@ def _with_audit(
         **updates,
         "audit_trail": [*state.get("audit_trail", []), audit_event],
     }
+
+
+def _uses_live_model(state: ReviewState) -> bool:
+    boundary = state.get("model_boundary")
+    return bool(boundary) and ModelBoundaryConfig.model_validate(boundary).is_live
 
 
 def load_inputs(state: ReviewState) -> ReviewState:
@@ -128,8 +136,16 @@ def score_coverage(state: ReviewState) -> ReviewState:
 def check_unsupported_claims(state: ReviewState) -> ReviewState:
     """Check proposed claims for evidence-grounded support."""
 
-    groundedness_result = groundedness_check_runnable.invoke(
-        {"candidate_profile": state["candidate_profile"]}
+    runnable = (
+        live_groundedness_check_runnable
+        if _uses_live_model(state)
+        else groundedness_check_runnable
+    )
+    groundedness_result = runnable.invoke(
+        {
+            "candidate_profile": state["candidate_profile"],
+            "model_boundary": state.get("model_boundary", {}),
+        }
     )
     groundedness_checks = [
         check.model_dump(mode="json") for check in groundedness_result.checks
@@ -176,13 +192,15 @@ def human_approval_gate(state: ReviewState) -> ReviewState:
 def draft_final_response(state: ReviewState) -> ReviewState:
     """Generate the safe final draft after human approval."""
 
-    draft_result = drafting_runnable.invoke(
+    runnable = live_drafting_runnable if _uses_live_model(state) else drafting_runnable
+    draft_result = runnable.invoke(
         {
             "approval_decision": state["approval_decision"],
             "groundedness_checks": state.get("groundedness_checks", []),
             "coverage_summary": state.get("coverage_summary", {}),
             "candidate_profile": state.get("candidate_profile", {}),
             "role_title": state.get("role_title", "Mock Role"),
+            "model_boundary": state.get("model_boundary", {}),
         }
     )
 
